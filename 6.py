@@ -8,18 +8,14 @@ from sklearn.ensemble import RandomForestClassifier
 from sklearn.linear_model import LogisticRegression
 from sklearn.svm import SVC
 
-# Load dataset
 iris = load_iris()
 X = iris.data
 y = iris.target
 
-# Binarize the output (required for some metrics like ROC)
 y_bin = label_binarize(y, classes=[0, 1, 2])
 
-# Split dataset into training and testing sets
 X_train, X_test, y_train, y_test, y_bin_train, y_bin_test = train_test_split(X, y, y_bin, test_size=0.3, random_state=42)
 
-# Initialize classifiers
 classifiers = {
     "Decision Tree": DecisionTreeClassifier(random_state=42),
     "Random Forest": RandomForestClassifier(n_estimators=100, random_state=42),
@@ -27,11 +23,9 @@ classifiers = {
     "SVM": SVC(probability=True, random_state=42)
 }
 
-# Train classifiers
 for name, clf in classifiers.items():
     clf.fit(X_train, y_train)
 
-# Function to calculate TPR and FPR
 def calculate_tpr_fpr(conf_matrix):
     TP = conf_matrix[1, 1]
     FN = conf_matrix[1, 0]
@@ -41,7 +35,6 @@ def calculate_tpr_fpr(conf_matrix):
     FPR = FP / (FP + TN)
     return TPR, FPR
 
-# Evaluate classifiers
 results = []
 for name, clf in classifiers.items():
     y_pred = clf.predict(X_test)
@@ -67,6 +60,5 @@ for name, clf in classifiers.items():
         "FPR": fpr
     })
 
-# Convert results to a DataFrame for better visualization
 results_df = pd.DataFrame(results)
 print(results_df)

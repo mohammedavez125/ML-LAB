@@ -1,11 +1,10 @@
-
-import tensorflow as tf
+import numpy as np
+import matplotlib.pyplot as plt
 from tensorflow.keras.preprocessing.text import Tokenizer
 from tensorflow.keras.preprocessing.sequence import pad_sequences
 from tensorflow.keras.models import Sequential
 from tensorflow.keras.layers import Embedding, LSTM, Dense
 from sklearn.model_selection import train_test_split
-import numpy as np
 
 texts = ["I love programming.", "Python is awesome!", "I hate bugs.", "Debugging is fun.", "I enjoy learning new things."]
 labels = [1, 1, 0, 1, 1]  
@@ -34,7 +33,6 @@ history = model.fit(X_train_pad, y_train, epochs=5, validation_data=(X_test_pad,
 loss, accuracy = model.evaluate(X_test_pad, y_test)
 print(f'Test Accuracy: {accuracy}')
 
-import matplotlib.pyplot as plt
 plt.plot(history.history['accuracy'], label='accuracy')
 plt.plot(history.history['val_accuracy'], label='val_accuracy')
 plt.xlabel('Epoch')

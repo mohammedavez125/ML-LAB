@@ -1,0 +1,1 @@
+'C:/Users/moham/Downloads/ml_lab/2/content/Salary_Data.csv'
